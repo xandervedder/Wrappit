@@ -20,6 +20,8 @@ builder.Services.AddWrappit(new WrappitOptions
 	Password = "...",
 	ExchangeName = "...",
 	QueueName = "...",
+	// Optionally add a delivery limit
+	DeliveryLimit = 5,
 });
 
 ```
@@ -31,6 +33,8 @@ These options can be ommitted if the following environment variables have been s
  * `Wrappit_Password`
  * `Wrappit_ExchangeName`
  * `Wrappit_QueueName`
+ * `Wrappit_DeliveryLimit`
+   * This one is optional, the default is `10`. This delivery limit is used when a handle method fails, this prevents infinite requeuing (see the related [issue](https://github.com/xandervedder/Wrappit/issues/1)).
 
 Once all of the environment variables have been set, the following can be done:
 
