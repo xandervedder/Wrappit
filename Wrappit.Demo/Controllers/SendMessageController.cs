@@ -19,6 +19,13 @@ public class MessageController : ControllerBase
     {
         _publisher.Publish("Demo.Topic", new ExampleEvent { ExampleProperty = message });
     }
+
+    [HttpPost("error")]
+    public void SendError(string message)
+    {
+        // This will trigger the demonstration of the timeout feature:
+        _publisher.Publish("Demo.Error", new ExampleEvent { ExampleProperty = message});
+    }
 }
 
 public class ExampleEvent : DomainEvent 

@@ -1,7 +1,7 @@
 using Wrappit.Attributes;
 using Wrappit.Demo.Controllers;
 
-namespace Wrappit.Demo;
+namespace Wrappit.Demo.Listeners;
 
 [EventListener]
 public class DependencyInjectionListener
