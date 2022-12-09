@@ -23,15 +23,8 @@ internal class BasicReciever : IBasicReciever
     {
         _context = context;
         _logger = logger;
-
-        if (_context.QueueType != DefaultQueueType)
-        {
-            return;
-        }
-        
-        _queueArguments["x-queue-type"] = _context.QueueType;
+        _queueArguments["x-queue-type"] = DefaultQueueType;
         _queueArguments["x-delivery-limit"] = _context.DeliveryLimit;
-
     }
 
     public void SetUpQueue(IEnumerable<string> topics)

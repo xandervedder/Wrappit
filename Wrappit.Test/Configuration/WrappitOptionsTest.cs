@@ -19,7 +19,6 @@ public class WrappitOptionsTest
         Assert.AreEqual(5672, options.Port);
         Assert.AreEqual("Wrappit.DefaultExchangeName", options.ExchangeName);
         Assert.AreEqual("Wrappit.DefaultQueueName", options.QueueName);
-        Assert.AreEqual("quorum", options.QueueType);
         Assert.AreEqual(10, options.DeliveryLimit);
     }
 
@@ -35,7 +34,6 @@ public class WrappitOptionsTest
             HostName = "wrappit.org",
             ExchangeName = "Wrappit.Exchange",
             QueueName = "Wrappit.Queue",
-            QueueType = "classic",
             DeliveryLimit = 1,
         };
 
@@ -46,7 +44,6 @@ public class WrappitOptionsTest
         Assert.AreEqual(1200, options.Port);
         Assert.AreEqual("Wrappit.Exchange", options.ExchangeName);
         Assert.AreEqual("Wrappit.Queue", options.QueueName);
-        Assert.AreEqual("classic", options.QueueType);
         Assert.AreEqual(1, options.DeliveryLimit);
     }
 

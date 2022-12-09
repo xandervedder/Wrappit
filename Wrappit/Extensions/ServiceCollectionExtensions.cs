@@ -15,6 +15,7 @@ public static class ServiceCollectionExtensions
     private const string EnvPassword = "Wrappit_Password";
     private const string EnvExchangeName = "Wrappit_ExchangeName";
     private const string EnvQueueName = "Wrappit_QueueName";
+    private const string EnvDeliveryLimit = "Wrappit_DeliveryLimit";
     
     public static IServiceCollection AddWrappit(this IServiceCollection collection)
     {
@@ -28,6 +29,13 @@ public static class ServiceCollectionExtensions
             QueueName = Environment.GetEnvironmentVariable(EnvQueueName) ?? throw MissingEnvVariable(EnvQueueName),
         };
 
+        var deliveryLimit = Environment.GetEnvironmentVariable(EnvDeliveryLimit);
+        if (deliveryLimit == null)
+        {
+            return AddWrappit(collection, options);
+        }
+        
+        options.DeliveryLimit = int.Parse(deliveryLimit);
         return AddWrappit(collection, options);
     }
     
