@@ -28,7 +28,7 @@ public class MessageController : ControllerBase
     }
 }
 
-public class ExampleEvent : DomainEvent 
+public class ExampleEvent : DomainEvent
 {
-    public string ExampleProperty { get; set; }
+    public string ExampleProperty { get; set; } = null!;
 }
