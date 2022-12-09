@@ -11,6 +11,8 @@ public interface IWrappitOptions
  
     public string ExchangeName { get; set; }
     public string QueueName { get; set; }
+    public string QueueType { get; set; }
+    public int DeliveryLimit { get; set; }
 
     public IConnectionFactory CreateFactory();
 }
