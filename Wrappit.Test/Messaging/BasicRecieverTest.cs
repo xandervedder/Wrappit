@@ -43,7 +43,7 @@ public class BasicRecieverTest
         _reciever.SetUpQueue(new [] { topic });
 
         // Assert
-        _channelMock.Verify(c => c.QueueDeclare(QueueName, true, false, false, null));
+        _channelMock.Verify(c => c.QueueDeclare(QueueName, true, false, false, It.IsAny<IDictionary<string, object>>()));
         _channelMock.Verify(c => c.QueueBind(QueueName, ExchangeName, topic, null));
     }
 
@@ -73,7 +73,7 @@ public class BasicRecieverTest
 
         // Assert
         // Should only contain one QueueDeclare:
-        _channelMock.Verify(c => c.QueueDeclare(QueueName, true, false, false, null));
+        _channelMock.Verify(c => c.QueueDeclare(QueueName, true, false, false, It.IsAny<IDictionary<string, object>>()));
         _channelMock.Verify(c => c.QueueBind(QueueName, ExchangeName, It.IsAny<string>(), null), Times.Exactly(3));
     }
     

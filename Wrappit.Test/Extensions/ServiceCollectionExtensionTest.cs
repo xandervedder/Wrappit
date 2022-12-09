@@ -146,6 +146,8 @@ public class ServiceCollectionExtensionTest
         Assert.AreEqual("1234", options.Password);
         Assert.AreEqual("Wrappit.Exchange", options.ExchangeName);
         Assert.AreEqual("Wrappit.Queue", options.QueueName);
+        // Optional
+        Assert.AreEqual(10, options.DeliveryLimit);
     }
 
     [TestMethod]
@@ -192,5 +194,26 @@ public class ServiceCollectionExtensionTest
         // Assert
         var exception = Assert.ThrowsException<WrappitException>(ShouldFail);
         Assert.AreEqual(exception.Message, message);
+    }
+
+    [TestMethod]
+    public void ServiceCollectionExtensions_WhenGivingOptionalDeliveryLimit_ShouldReturnCorrectDeliveryLimit()
+    {
+        // Arrange
+        var collection = new ServiceCollection();
+        Environment.SetEnvironmentVariable("Wrappit_HostName", "Test");
+        Environment.SetEnvironmentVariable("Wrappit_Port", "200");
+        Environment.SetEnvironmentVariable("Wrappit_UserName", "guest");
+        Environment.SetEnvironmentVariable("Wrappit_Password", "guest");
+        Environment.SetEnvironmentVariable("Wrappit_ExchangeName", "TestExchange");
+        Environment.SetEnvironmentVariable("Wrappit_QueueName", "TestQueue");
+        Environment.SetEnvironmentVariable("Wrappit_DeliveryLimit", "5");
+        
+        // Act
+        collection.AddWrappit();
+
+        // Assert
+        var options = collection.BuildServiceProvider().GetService<IWrappitOptions>()!;
+        Assert.AreEqual(5, options.DeliveryLimit);
     }
 }

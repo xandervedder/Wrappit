@@ -9,8 +9,11 @@ namespace Wrappit.Messaging;
 
 internal class BasicReciever : IBasicReciever
 {
+    private const string DefaultQueueType = "quorum";
+    
     private readonly IWrappitContext _context;
     private readonly ILogger<IBasicReciever> _logger;
+    private readonly IDictionary<string, object> _queueArguments = new Dictionary<string, object>();
 
     private IModel? _channel;
     private bool _queueDeclared;
@@ -20,6 +23,8 @@ internal class BasicReciever : IBasicReciever
     {
         _context = context;
         _logger = logger;
+        _queueArguments["x-queue-type"] = DefaultQueueType;
+        _queueArguments["x-delivery-limit"] = _context.DeliveryLimit;
     }
 
     public void SetUpQueue(IEnumerable<string> topics)
@@ -27,7 +32,7 @@ internal class BasicReciever : IBasicReciever
         var topicsList = CanSetUpQueue(topics);
 
         using var channel = _context.CreateChannel();
-        channel.QueueDeclare(_context.QueueName, true, false, false, null);
+        channel.QueueDeclare(_context.QueueName, true, false, false, _queueArguments);
         _logger.LogDebug("Queue with name {name} set up.", _context.QueueName);
         
         foreach (var topic in topicsList)

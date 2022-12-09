@@ -10,7 +10,8 @@ public class WrappitOptions : IWrappitOptions
     public string Password { get; set; } = "guest";
     public string ExchangeName { get; set; } = "Wrappit.DefaultExchangeName";
     public string QueueName { get; set; } = "Wrappit.DefaultQueueName";
-    
+    public int DeliveryLimit { get; set; } = 10;
+
     public IConnectionFactory CreateFactory()
     {
         return new ConnectionFactory
