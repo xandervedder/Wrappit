@@ -26,7 +26,7 @@ public class WrappitPublisherTest
         var channelMock = new Mock<IModel>();
         var contextMock = new Mock<IWrappitContext>();
         contextMock.Setup(c => c.CreateChannel()).Returns(channelMock.Object);
-        var publisher = new WrappitPublisher(contextMock.Object, new NullLogger<BasicSender>());
+        var publisher = new WrappitPublisher(contextMock.Object, new NullLogger<BasicSender>(), new NullLogger<WrappitPublisher>());
         var evt = new DerivedDomainEventMock { Name = "Evert 't Reve" };
 
         // Act
@@ -40,7 +40,7 @@ public class WrappitPublisherTest
     public void WrappitPublisher_WhenSendingMessage_ShouldSendMessageCorrectly()
     {
         // Arrange
-        var publisher = new WrappitPublisher(_senderMock.Object);
+        var publisher = new WrappitPublisher(_senderMock.Object, new NullLogger<WrappitPublisher>());
         var evt = new DerivedDomainEventMock { Name = "Evert 't Reve" };
 
         // Act
