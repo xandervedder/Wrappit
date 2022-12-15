@@ -24,6 +24,7 @@ public class ServiceCollectionExtensionTest
         Environment.SetEnvironmentVariable("Wrappit_Password", null);
         Environment.SetEnvironmentVariable("Wrappit_ExchangeName", null);
         Environment.SetEnvironmentVariable("Wrappit_QueueName", null);
+        Environment.SetEnvironmentVariable("Wrappit_DeliveryLimit", null);
     }
 
     [TestMethod]
