@@ -37,7 +37,11 @@ internal class HandlerInvoker : IHandlerInvoker
     public void Dispatch(EventMessage message)
     {
         var instance = ActivatorUtilities.CreateInstance(_serviceProvider, EventListenerType);
-        var eventInstance = JsonConvert.DeserializeObject(message.Body, ParameterType);
+        var eventInstance = JsonConvert.DeserializeObject(message.Body, ParameterType) as DomainEvent;
+        _logger.LogInformation(
+            "Received event on topic {topic} with Correlation Id {correlationId}.",
+            message.Topic,
+            eventInstance!.CorrelationId);
 
         if (HandlerMethod.ReturnType == typeof(Task))
         {

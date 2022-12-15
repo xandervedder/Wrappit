@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Logging.Abstractions;
-using RabbitMQ.Client;
 using Wrappit.Configuration;
 using Wrappit.Messaging;
 using Wrappit.Test.Messaging.Mocks;
@@ -11,36 +10,21 @@ public class WrappitPublisherTest
 {
     private const string Topic = "Wrappit.Topic";
 
+    private Mock<IWrappitContext> _contextMock = null!;
     private Mock<IBasicSender> _senderMock = null!;
     
     [TestInitialize]
     public void Setup()
     {
+        _contextMock = new Mock<IWrappitContext>();
         _senderMock = new Mock<IBasicSender>();
-    }
-
-    [TestMethod]
-    public void WrappitPublisher_WhenUsingContextConstructor_ShouldCreateBasicSender()
-    {
-        // Arrange
-        var channelMock = new Mock<IModel>();
-        var contextMock = new Mock<IWrappitContext>();
-        contextMock.Setup(c => c.CreateChannel()).Returns(channelMock.Object);
-        var publisher = new WrappitPublisher(contextMock.Object, new NullLogger<BasicSender>(), new NullLogger<WrappitPublisher>());
-        var evt = new DerivedDomainEventMock { Name = "Evert 't Reve" };
-
-        // Act
-        publisher.Publish(Topic, evt);
-
-        // Assert
-        contextMock.Verify(c => c.CreateChannel());
     }
     
     [TestMethod]
     public void WrappitPublisher_WhenSendingMessage_ShouldSendMessageCorrectly()
     {
         // Arrange
-        var publisher = new WrappitPublisher(_senderMock.Object, new NullLogger<WrappitPublisher>());
+        var publisher = new WrappitPublisher(_contextMock.Object, _senderMock.Object, new NullLogger<WrappitPublisher>());
         var evt = new DerivedDomainEventMock { Name = "Evert 't Reve" };
 
         // Act
