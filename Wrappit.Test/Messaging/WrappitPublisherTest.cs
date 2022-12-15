@@ -10,13 +10,11 @@ public class WrappitPublisherTest
 {
     private const string Topic = "Wrappit.Topic";
 
-    private Mock<IWrappitContext> _contextMock = null!;
     private Mock<IBasicSender> _senderMock = null!;
     
     [TestInitialize]
     public void Setup()
     {
-        _contextMock = new Mock<IWrappitContext>();
         _senderMock = new Mock<IBasicSender>();
     }
     
@@ -24,7 +22,7 @@ public class WrappitPublisherTest
     public void WrappitPublisher_WhenSendingMessage_ShouldSendMessageCorrectly()
     {
         // Arrange
-        var publisher = new WrappitPublisher(_contextMock.Object, _senderMock.Object, new NullLogger<WrappitPublisher>());
+        var publisher = new WrappitPublisher(_senderMock.Object, new NullLogger<WrappitPublisher>());
         var evt = new DerivedDomainEventMock { Name = "Evert 't Reve" };
 
         // Act

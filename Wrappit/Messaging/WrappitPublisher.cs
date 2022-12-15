@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Wrappit.Configuration;
 
 namespace Wrappit.Messaging;
 
@@ -9,7 +8,7 @@ internal class WrappitPublisher : IWrappitPublisher
     private readonly IBasicSender _sender;
     private readonly ILogger<WrappitPublisher> _logger;
 
-    public WrappitPublisher(IWrappitContext context, IBasicSender sender, ILogger<WrappitPublisher> logger)
+    public WrappitPublisher(IBasicSender sender, ILogger<WrappitPublisher> logger)
     {
         _sender = sender;
         _logger = logger;
