@@ -79,16 +79,13 @@ internal class BasicReciever : IBasicReciever
             }
             catch (InvalidOperationException e)
             {
-                _logger.LogCritical("Dependency injection failed.\n{exception}", e.ToString());
+                _logger.LogCritical(e, "Dependency injection failed.");
                 throw new WrappitException("Dependency injection failed.", e);
             }
             catch (Exception e)
             {
                 _channel.BasicNack(args.DeliveryTag, false, true);
-                _logger.LogError(
-                    "Could not acknowledge message with routing key {key}.\nReason: {exception}",
-                    eventMessage.Topic,
-                    e.ToString());
+                _logger.LogError(e, "Could not acknowledge message with routing key {key}.", eventMessage.Topic);
             }
         };
         
