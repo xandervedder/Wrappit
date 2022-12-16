@@ -4,7 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>1.1.2</Version>
+        <Version>1.1.3</Version>
         <Authors>Xander Vedder</Authors>
         <Product>Wrappit</Product>
         <Description>A simple wrapper around RabbitMQ.</Description>
