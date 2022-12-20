@@ -1,5 +1,9 @@
 # Wrappit
 
+<div style="text-align: center">
+    <img src="logo.png">
+</div>
+
 Wrappit is a simple wrapper around RabbitMQ which makes it easier to both send and recieve messages from RabbitMQ.
 
 **Note: Currently, Wrappit only supports Topical exchanges with no plans on supporting other types of exchanges.**
