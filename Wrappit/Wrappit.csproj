@@ -9,7 +9,7 @@
         <Product>Wrappit</Product>
         <Description>A simple wrapper around RabbitMQ.</Description>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageIcon>logo.png<PackageIcon>
+        <PackageIcon>logo.png</PackageIcon>
     </PropertyGroup>
 
     <ItemGroup>
