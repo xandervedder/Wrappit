@@ -1,8 +1,9 @@
 # Wrappit
 
-<div style="text-align: center">
-    <img src="logo.png">
-</div>
+<p align="center" width="100%">
+    <img width="33%" src="logo.png"> 
+</p>
+
 
 Wrappit is a simple wrapper around RabbitMQ which makes it easier to both send and recieve messages from RabbitMQ.
 
