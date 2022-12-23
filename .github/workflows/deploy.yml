@@ -9,20 +9,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Navigate to Wrappit directory
-      run: cd Wrappit
     - uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: cd Wrappit && dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: cd Wrappit && dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: cd Wrappit && dotnet test --no-build --verbosity normal
     - name: Pack
-      run: dotnet pack Wrappit/Wrappit.csproj --no-build
+      run: cd Wrappit && dotnet pack Wrappit/Wrappit.csproj --no-build
     - name: Push Package to NuGet.org
       run: dotnet nuget push **/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
