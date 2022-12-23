@@ -19,8 +19,8 @@
         <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
         <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
 
-        <None Include="../README.md" Pack="true" PackagePath="\"/>
-        <None Include="../logo.png" Pack="true" PackagePath="\"/>
+        <None Include="../../README.md" Pack="true" PackagePath="\"/>
+        <None Include="../../logo.png" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>
