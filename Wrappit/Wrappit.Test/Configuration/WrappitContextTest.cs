@@ -25,7 +25,7 @@ public class WrappitContextTest
     }
 
     [TestMethod]
-    public void WrappitContext_WhenCreatingNewContext_ShouldUseExchangeAndQueueNameFromOptions()
+    public void WrappitContext_WhenCreatingNewContext_ShouldUseVariablesFromOptions()
     {
         // Arrange & Act
         var context = new WrappitContext(new WrappitOptions(), new NullLogger<WrappitContext>());
@@ -33,6 +33,8 @@ public class WrappitContextTest
         // Assert
         Assert.AreEqual("Wrappit.DefaultExchangeName", context.ExchangeName);
         Assert.AreEqual("Wrappit.DefaultQueueName", context.QueueName);
+        Assert.AreEqual(true, context.DurableQueue);
+        Assert.AreEqual(false, context.AutoDeleteQueue);
     }
 
     [TestMethod]

@@ -1,8 +1,6 @@
 # Wrappit
 
-<p align="center" width="100%">
-    <img width="33%" src="logo.png"> 
-</p>
+![Wrappit logo](logo.png)
 
 Wrappit is a simple wrapper around RabbitMQ which makes it easier to both send and recieve messages from RabbitMQ.
 
@@ -24,21 +22,27 @@ builder.Services.AddWrappit(new WrappitOptions
 	Password = "...",
 	ExchangeName = "...",
 	QueueName = "...",
-	// Optionally add a delivery limit
+	// Optionally add the following:
 	DeliveryLimit = 5,
+    DurableQueue = false,
+    AutoDeleteQueue = true,
 });
 
 ```
 
 These options can be ommitted if the following environment variables have been set:
- * `Wrappit_HostName`
- * `Wrappit_Port`
- * `Wrappit_UserName`
- * `Wrappit_Password`
- * `Wrappit_ExchangeName`
- * `Wrappit_QueueName`
- * `Wrappit_DeliveryLimit`
-   * This one is optional, the default is `10`. This delivery limit is used when a handle method fails, this prevents infinite requeuing (see the related [issue](https://github.com/xandervedder/Wrappit/issues/1)).
+ * `Wrappit_HostName`.
+ * `Wrappit_Port`.
+ * `Wrappit_UserName`.
+ * `Wrappit_Password`.
+ * `Wrappit_ExchangeName`.
+ * `Wrappit_QueueName`.
+ * **Optional variables:**
+   * `Wrappit_DeliveryLimit`.
+        The default is `10`. This delivery limit is used when a handle method fails, this prevents infinite requeuing (see the related [issue](https://github.com/xandervedder/Wrappit/issues/1)).
+   * `Wrappit_DurableQueue`.
+   * `Wrappit_AutoDeleteQueue`.
+
 
 Once all of the environment variables have been set, the following can be done:
 
@@ -99,6 +103,21 @@ public class DependencyInjectionListener
     public void Handle(ExampleEvent @event)
     {
         _example.DoStuff();
+    }
+}
+```
+
+Lastly, it is also possible for the `Handle` method to be asynchronous:
+
+```csharp
+[EventListener]
+public class AsyncListener
+{
+    [Handle("Demo.Async")]
+    public async Task HandleAsync(ExampleEvent @event)
+    {
+        await Task.Delay(2000);
+        Console.WriteLine(@event.ExampleProperty);
     }
 }
 ```

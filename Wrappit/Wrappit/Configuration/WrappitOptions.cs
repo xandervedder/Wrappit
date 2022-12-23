@@ -11,6 +11,8 @@ public class WrappitOptions : IWrappitOptions
     public string ExchangeName { get; set; } = "Wrappit.DefaultExchangeName";
     public string QueueName { get; set; } = "Wrappit.DefaultQueueName";
     public int DeliveryLimit { get; set; } = 10;
+    public bool DurableQueue { get; set; } = true;
+    public bool AutoDeleteQueue { get; set; } = false;
 
     public IConnectionFactory CreateFactory()
     {

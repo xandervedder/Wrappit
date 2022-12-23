@@ -25,6 +25,8 @@ public class ServiceCollectionExtensionTest
         Environment.SetEnvironmentVariable("Wrappit_ExchangeName", null);
         Environment.SetEnvironmentVariable("Wrappit_QueueName", null);
         Environment.SetEnvironmentVariable("Wrappit_DeliveryLimit", null);
+        Environment.SetEnvironmentVariable("Wrappit_DurableQueue", null);
+        Environment.SetEnvironmentVariable("Wrappit_AutoDeleteQueue", null);
     }
 
     [TestMethod]
@@ -198,16 +200,11 @@ public class ServiceCollectionExtensionTest
     }
 
     [TestMethod]
-    public void ServiceCollectionExtensions_WhenGivingOptionalDeliveryLimit_ShouldReturnCorrectDeliveryLimit()
+    public void ServiceCollectionExtensions_WhenGivingOptionalDeliveryLimit_ShouldReturnValue()
     {
         // Arrange
         var collection = new ServiceCollection();
-        Environment.SetEnvironmentVariable("Wrappit_HostName", "Test");
-        Environment.SetEnvironmentVariable("Wrappit_Port", "200");
-        Environment.SetEnvironmentVariable("Wrappit_UserName", "guest");
-        Environment.SetEnvironmentVariable("Wrappit_Password", "guest");
-        Environment.SetEnvironmentVariable("Wrappit_ExchangeName", "TestExchange");
-        Environment.SetEnvironmentVariable("Wrappit_QueueName", "TestQueue");
+        SetEnvVariables();
         Environment.SetEnvironmentVariable("Wrappit_DeliveryLimit", "5");
         
         // Act
@@ -216,5 +213,47 @@ public class ServiceCollectionExtensionTest
         // Assert
         var options = collection.BuildServiceProvider().GetService<IWrappitOptions>()!;
         Assert.AreEqual(5, options.DeliveryLimit);
+    }
+
+    [TestMethod]
+    public void ServiceCollectionExtensions_WhenGivingOptionalQueueDurability_ShouldHaveCorrectValue()
+    {
+        // Arrange
+        var collection = new ServiceCollection();
+        SetEnvVariables();
+        Environment.SetEnvironmentVariable("Wrappit_DurableQueue", "true");
+        
+        // Act
+        collection.AddWrappit();
+
+        // Assert
+        var options = collection.BuildServiceProvider().GetService<IWrappitOptions>()!;
+        Assert.AreEqual(true, options.DurableQueue);
+    }
+
+    [TestMethod]
+    public void ServiceCollectionExtensions_WhenGivingOptionalAutoDeleteQueue_ShouldHaveCorrectValue()
+    {
+        // Arrange
+        var collection = new ServiceCollection();
+        SetEnvVariables();
+        Environment.SetEnvironmentVariable("Wrappit_AutoDeleteQueue", "true");
+        
+        // Act
+        collection.AddWrappit();
+
+        // Assert
+        var options = collection.BuildServiceProvider().GetService<IWrappitOptions>()!;
+        Assert.AreEqual(true, options.AutoDeleteQueue);
+    }
+
+    private static void SetEnvVariables()
+    {
+        Environment.SetEnvironmentVariable("Wrappit_HostName", "Test");
+        Environment.SetEnvironmentVariable("Wrappit_Port", "200");
+        Environment.SetEnvironmentVariable("Wrappit_UserName", "guest");
+        Environment.SetEnvironmentVariable("Wrappit_Password", "guest");
+        Environment.SetEnvironmentVariable("Wrappit_ExchangeName", "TestExchange");
+        Environment.SetEnvironmentVariable("Wrappit_QueueName", "TestQueue");
     }
 }

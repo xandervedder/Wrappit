@@ -20,6 +20,12 @@ public class MessageController : ControllerBase
         _publisher.Publish("Demo.Topic", new ExampleEvent { ExampleProperty = message });
     }
 
+    [HttpPost("async")]
+    public void WillRecieveAsync(string message)
+    {
+        _publisher.Publish("Demo.Async", new ExampleEvent { ExampleProperty = message});
+    }
+
     [HttpPost("error")]
     public void SendError(string message)
     {
