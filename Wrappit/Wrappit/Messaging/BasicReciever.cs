@@ -32,7 +32,13 @@ internal class BasicReciever : IBasicReciever
         var topicsList = CanSetUpQueue(topics);
 
         using var channel = _context.CreateChannel();
-        channel.QueueDeclare(_context.QueueName, true, false, false, _queueArguments);
+        channel.QueueDeclare(
+            _context.QueueName,
+            _context.DurableQueue,
+            exclusive: false,
+            _context.AutoDeleteQueue,
+            _queueArguments);
+        
         _logger.LogDebug("Queue with name {name} set up.", _context.QueueName);
         
         foreach (var topic in topicsList)

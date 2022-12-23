@@ -38,6 +38,8 @@ internal class WrappitContext : IWrappitContext
     public string ExchangeName => _options.ExchangeName;
     public string QueueName => _options.QueueName;
     public int DeliveryLimit => _options.DeliveryLimit;
+    public bool DurableQueue => _options.DurableQueue;
+    public bool AutoDeleteQueue => _options.AutoDeleteQueue;
 
     public WrappitContext(IWrappitOptions options, ILogger<WrappitContext> logger)
     {

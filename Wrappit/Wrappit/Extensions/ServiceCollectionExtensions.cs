@@ -9,13 +9,24 @@ namespace Wrappit.Extensions;
 
 public static class ServiceCollectionExtensions
 {
+    #region Required Environment Variables
+    
     private const string EnvHostName = "Wrappit_HostName";
     private const string EnvPortNumber = "Wrappit_Port";
     private const string EnvUserName = "Wrappit_UserName";
     private const string EnvPassword = "Wrappit_Password";
     private const string EnvExchangeName = "Wrappit_ExchangeName";
     private const string EnvQueueName = "Wrappit_QueueName";
+    
+    #endregion
+    
+    #region Optional Environment Variables
+    
     private const string EnvDeliveryLimit = "Wrappit_DeliveryLimit";
+    private const string EnvDurableQueue = "Wrappit_DurableQueue";
+    private const string EnvAutoDeleteQueue = "Wrappit_AutoDeleteQueue";
+    
+    #endregion
     
     public static IServiceCollection AddWrappit(this IServiceCollection collection)
     {
@@ -28,15 +39,31 @@ public static class ServiceCollectionExtensions
             ExchangeName = Environment.GetEnvironmentVariable(EnvExchangeName) ?? throw MissingEnvVariable(EnvExchangeName),
             QueueName = Environment.GetEnvironmentVariable(EnvQueueName) ?? throw MissingEnvVariable(EnvQueueName),
         };
-
-        var deliveryLimit = Environment.GetEnvironmentVariable(EnvDeliveryLimit);
-        if (deliveryLimit == null)
-        {
-            return AddWrappit(collection, options);
-        }
         
-        options.DeliveryLimit = int.Parse(deliveryLimit);
+        AddOptionalEnvironmentVariables(options);
+        
         return AddWrappit(collection, options);
+    }
+
+    private static void AddOptionalEnvironmentVariables(IWrappitOptions options)
+    {
+        var deliveryLimit = Environment.GetEnvironmentVariable(EnvDeliveryLimit);
+        if (deliveryLimit != null)
+        {
+            options.DeliveryLimit = int.Parse(deliveryLimit);
+        }
+
+        var durableQueue = Environment.GetEnvironmentVariable(EnvDurableQueue);
+        if (durableQueue != null)
+        {
+            options.DurableQueue = bool.Parse(durableQueue);
+        }
+
+        var autoDeleteQueue = Environment.GetEnvironmentVariable(EnvAutoDeleteQueue);
+        if (autoDeleteQueue != null)
+        {
+            options.AutoDeleteQueue = bool.Parse(autoDeleteQueue);
+        }
     }
     
     public static IServiceCollection AddWrappit(this IServiceCollection collection, IWrappitOptions options)
