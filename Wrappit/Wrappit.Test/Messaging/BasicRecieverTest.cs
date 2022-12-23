@@ -29,6 +29,7 @@ public class BasicRecieverTest
         _contextMock = new Mock<IWrappitContext>();
         _contextMock.Setup(c => c.ExchangeName).Returns(ExchangeName);
         _contextMock.Setup(c => c.QueueName).Returns(QueueName);
+        _contextMock.Setup(c => c.DurableQueue).Returns(true);
         _contextMock.Setup(c => c.CreateChannel()).Returns(_channelMock.Object);
         _reciever = new BasicReciever(_contextMock.Object, new NullLogger<BasicReciever>());
     }
