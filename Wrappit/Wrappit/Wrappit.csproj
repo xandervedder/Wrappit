@@ -8,8 +8,13 @@
         <Authors>Xander Vedder</Authors>
         <Product>Wrappit</Product>
         <Description>A simple wrapper around RabbitMQ.</Description>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageId>Wrappit</PackageId>
         <PackageIcon>logo.png</PackageIcon>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageProjectUrl>https://github.com/xandervedder/Wrappit</PackageProjectUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageTags>RabbitMQ, Wrapper, Simple, Easy</PackageTags>
+        <RepositoryUrl>https://github.com/xandervedder/Wrappit</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,8 +24,9 @@
         <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
         <PackageReference Include="RabbitMQ.Client" Version="6.4.0" />
 
-        <None Include="../../README.md" Pack="true" PackagePath="\"/>
         <None Include="../../logo.png" Pack="true" PackagePath="\"/>
+        <None Include="../../LICENSE" Pack="true" PackagePath="\"/>
+        <None Include="../../README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>
