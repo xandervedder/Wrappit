@@ -7,10 +7,10 @@ namespace Wrappit.Demo.Listeners;
 public class SimpleListener
 {
     [Handle("Demo.Topic")]
-    public void Handle(ExampleEvent e)
+    public void Handle(ExampleEvent @event)
     {
-        Console.WriteLine(e.ExampleProperty);
-        Console.WriteLine(e.CorrelationId);
-        Console.WriteLine(e.DateTime);
+        Console.WriteLine(@event.ExampleProperty);
+        Console.WriteLine(@event.CorrelationId);
+        Console.WriteLine(@event.DateTime);
     }
 }

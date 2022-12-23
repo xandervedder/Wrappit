@@ -101,6 +101,21 @@ public class DependencyInjectionListener
 }
 ```
 
+Lastly, it is also possible for the `Handle` method to be asynchronous:
+
+```csharp
+[EventListener]
+public class AsyncListener
+{
+    [Handle("Demo.Async")]
+    public async Task HandleAsync(ExampleEvent @event)
+    {
+        await Task.Delay(2000);
+        Console.WriteLine(@event.ExampleProperty);
+    }
+}
+```
+
 ### Publishing an event
 
 Publishing an event is even easier, simply add the `IWrappitPublisher` to your constructor. Dependency injection will take care of the rest:
