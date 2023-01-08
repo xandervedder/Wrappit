@@ -16,14 +16,14 @@ To use Wrappit, use the following method in the services:
 
 builder.Services.AddWrappit(new WrappitOptions
 {
-	HostName = "...",
-	Port = 1234,
-	UserName = "...",
-	Password = "...",
-	ExchangeName = "...",
-	QueueName = "...",
-	// Optionally add the following:
-	DeliveryLimit = 5,
+    HostName = "...",
+    Port = 1234,
+    UserName = "...",
+    Password = "...",
+    ExchangeName = "...",
+    QueueName = "...",
+    // Optionally add the following:
+    DeliveryLimit = 5,
     DurableQueue = false,
     AutoDeleteQueue = true,
 });
