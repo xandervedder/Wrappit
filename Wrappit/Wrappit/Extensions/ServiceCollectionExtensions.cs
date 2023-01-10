@@ -24,6 +24,7 @@ public static class ServiceCollectionExtensions
     
     private const string EnvDeliveryLimit = "Wrappit_DeliveryLimit";
     private const string EnvDurableQueue = "Wrappit_DurableQueue";
+    private const string EnvDurableExchange = "Wrappit_DurableExchange";
     private const string EnvAutoDeleteQueue = "Wrappit_AutoDeleteQueue";
     
     #endregion
@@ -57,6 +58,12 @@ public static class ServiceCollectionExtensions
         if (durableQueue != null)
         {
             options.DurableQueue = bool.Parse(durableQueue);
+        }
+
+        var durableExchange = Environment.GetEnvironmentVariable(EnvDurableExchange);
+        if (durableExchange != null)
+        {
+            options.DurableExchange = bool.Parse(durableExchange);
         }
 
         var autoDeleteQueue = Environment.GetEnvironmentVariable(EnvAutoDeleteQueue);
