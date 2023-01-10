@@ -34,6 +34,7 @@ public class WrappitContextTest
         Assert.AreEqual("Wrappit.DefaultExchangeName", context.ExchangeName);
         Assert.AreEqual("Wrappit.DefaultQueueName", context.QueueName);
         Assert.AreEqual(true, context.DurableQueue);
+        Assert.AreEqual(true, context.DurableExchange);
         Assert.AreEqual(false, context.AutoDeleteQueue);
     }
 
@@ -59,6 +60,7 @@ public class WrappitContextTest
         // Arrange
         const string exchangeName = "Wrappit.Exchange";
         _optionsMock.Setup(o => o.ExchangeName).Returns(exchangeName);
+        _optionsMock.Setup(o => o.DurableExchange).Returns(true);
 
         var wrappitContext = new WrappitContext(_optionsMock.Object, new NullLogger<WrappitContext>());
 

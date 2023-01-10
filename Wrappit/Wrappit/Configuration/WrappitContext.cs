@@ -24,7 +24,7 @@ internal class WrappitContext : IWrappitContext
                     {
                         _connection = _options.CreateFactory().CreateConnection();
                         using var channel = _connection.CreateModel();
-                        channel.ExchangeDeclare(_options.ExchangeName, ExchangeType.Topic, true, false, null);
+                        channel.ExchangeDeclare(_options.ExchangeName, ExchangeType.Topic, _options.DurableExchange, false, null);
                         
                         _logger.LogDebug("Created exchange with name {exchangeName}.", _options.ExchangeName);
                     }
@@ -36,6 +36,7 @@ internal class WrappitContext : IWrappitContext
     }
 
     public string ExchangeName => _options.ExchangeName;
+    public bool DurableExchange => _options.DurableExchange;
     public string QueueName => _options.QueueName;
     public int DeliveryLimit => _options.DeliveryLimit;
     public bool DurableQueue => _options.DurableQueue;

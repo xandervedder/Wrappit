@@ -21,6 +21,7 @@ public class WrappitOptionsTest
         Assert.AreEqual("Wrappit.DefaultQueueName", options.QueueName);
         Assert.AreEqual(10, options.DeliveryLimit);
         Assert.AreEqual(true, options.DurableQueue);
+        Assert.AreEqual(true, options.DurableExchange);
         Assert.AreEqual(false, options.AutoDeleteQueue);
     }
 
@@ -38,6 +39,7 @@ public class WrappitOptionsTest
             QueueName = "Wrappit.Queue",
             DeliveryLimit = 1,
             DurableQueue = false,
+            DurableExchange = false,
             AutoDeleteQueue = true,
         };
 
@@ -50,6 +52,7 @@ public class WrappitOptionsTest
         Assert.AreEqual("Wrappit.Queue", options.QueueName);
         Assert.AreEqual(1, options.DeliveryLimit);
         Assert.AreEqual(false, options.DurableQueue);
+        Assert.AreEqual(false, options.DurableExchange);
         Assert.AreEqual(true, options.AutoDeleteQueue);
     }
 
