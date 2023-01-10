@@ -23,10 +23,10 @@ builder.Services.AddWrappit(new WrappitOptions
     ExchangeName = "...",
     QueueName = "...",
     // Optionally add the following:
-    DeliveryLimit = 5,
-    DurableQueue = false,
-    DurableExchange = false,
-    AutoDeleteQueue = true,
+    DeliveryLimit = 5, // default 10
+    DurableQueue = false, // defeault true
+    DurableExchange = false, // default true
+    AutoDeleteQueue = true, // default false
 });
 
 ```
@@ -42,8 +42,11 @@ These options can be ommitted if the following environment variables have been s
    * `Wrappit_DeliveryLimit`.
         The default is `10`. This delivery limit is used when a handle method fails, this prevents infinite requeuing (see the related [issue](https://github.com/xandervedder/Wrappit/issues/1)).
    * `Wrappit_DurableQueue`.
+        The default is `true`.
    * `Wrappit_DurableExchange`.
+        The default is `true`.
    * `Wrappit_AutoDeleteQueue`.
+        The default is `false`.
 
 
 Once all of the environment variables have been set, the following can be done:
