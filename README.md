@@ -24,7 +24,7 @@ builder.Services.AddWrappit(new WrappitOptions
     QueueName = "...",
     // Optionally add the following:
     DeliveryLimit = 5, // default 10
-    DurableQueue = false, // defeault true
+    DurableQueue = false, // default true
     DurableExchange = false, // default true
     AutoDeleteQueue = true, // default false
 });
